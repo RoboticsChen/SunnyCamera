@@ -1,9 +1,23 @@
 # Sunny camera driver
-
+## Requirements
+```shell
+# opencv 
+git clone https://github.com/opencv/opencv
+cd opencv
+mkdir build && cd build
+cmake ..
+make -j12
+make install
+```
+```shell
+# pip install 
+numpy
+pybind11
+```
 ## Installation
 
 ```shell
-# git clone https://...
+git clone git@github.com:RoboticsChen/Sunny_camera.git
 cd sunny_camera
 chmod +x *.sh
 . build.sh     
