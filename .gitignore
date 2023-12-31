@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+# 忽略编译生成的文件夹
+.vscode/
+
+sunny_camera/__pycache__
+sunny_camera/.vscode/
+sunny_camera/bin
+sunny_camera/build/
+sunny_camera/libs/__pycache__
+sunny_camera/libs/sunny_camera.so
+sunny_camera/pointCloud.txt
+sunny_camera/tof_dev_sdk_log.txt
