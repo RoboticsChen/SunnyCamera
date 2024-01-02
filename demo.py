@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image  # 如果没有安装，可以使用 pip install Pillow 安装
 import matplotlib.pyplot as plt
 
-aircamera = sunny_camera.Camera(1)
+aircamera = sunny_camera.Camera()
 aircamera.init()
 
 rgb = np.array(aircamera.get_rgb()) / 255.0

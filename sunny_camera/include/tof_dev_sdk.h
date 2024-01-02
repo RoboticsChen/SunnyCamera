@@ -16,23 +16,18 @@
 
 typedef enum tagTOF_DEV_TYPE
 {
-	TOF_DEV_CHROMEBOOK		   = MAKE_UNIQUE_ID('C',  'M',  'B', 0x00),//ChromeBook
 	TOF_DEV_CLEANER01A         = MAKE_UNIQUE_ID('C', 0x01,  'A', 0x00),//Cleaner01A
 	TOF_DEV_CLEANER01APLUS     = MAKE_UNIQUE_ID('C', 0x01,  'A', 0x01),//Cleaner01A（Plus版）
 	TOF_DEV_CLEANER01APRO      = MAKE_UNIQUE_ID('C', 0x01,  'A', 0x02),//Cleaner01A（Pro版）
-	TOF_DEV_CLEANER01A_NET     = MAKE_UNIQUE_ID('C', 0x01,  'A', 0x03),//Cleaner01A（网络版）
 	TOF_DEV_CLEANER01A2        = MAKE_UNIQUE_ID('C', 0x01, 0xA2, 0x00),//Cleaner01A2
 	TOF_DEV_CLEANER01B         = MAKE_UNIQUE_ID('C', 0x01,  'B', 0x00),//Cleaner01B
 	TOF_DEV_CLEANER01D         = MAKE_UNIQUE_ID('C', 0x01,  'D', 0x00),//Cleaner01D
-	TOF_DEV_CLEANER01D_NET     = MAKE_UNIQUE_ID('C', 0x01,  'D', 0x01),//Cleaner01D（网络版）
-	TOF_DEV_CLEANER01E_NET     = MAKE_UNIQUE_ID('C', 0x01,  'E', 0x01),//Cleaner01E（网络版）
 	TOF_DEV_CLEANER01F         = MAKE_UNIQUE_ID('C', 0x01,  'F', 0x00),//Cleaner01F
 	TOF_DEV_CLEANER01F1        = MAKE_UNIQUE_ID('C', 0x01,  'F', 0x01),//Cleaner01F1
 	TOF_DEV_CLEANER01G         = MAKE_UNIQUE_ID('C', 0x01,  'G', 0x00),//Cleaner01G
 	TOF_DEV_CLEANER01G1        = MAKE_UNIQUE_ID('C', 0x01,  'G', 0x01),//Cleaner01G1
 	TOF_DEV_CLEANER01X         = MAKE_UNIQUE_ID('C', 0x01,  'X', 0x00),//Cleaner01X
 	TOF_DEV_CLEANER02A         = MAKE_UNIQUE_ID('C', 0x02,  'A', 0x00),//Cleaner02A
-	TOF_DEV_CLEANER02A_NET     = MAKE_UNIQUE_ID('C', 0x02,  'A', 0x01),//Cleaner02A（网络版）
 	TOF_DEV_MARS01A            = MAKE_UNIQUE_ID('M', 0x01,  'A', 0x00),//Mars01A
 	TOF_DEV_MARS01B            = MAKE_UNIQUE_ID('M', 0x01,  'B', 0x00),//Mars01B
 	TOF_DEV_MARS01C            = MAKE_UNIQUE_ID('M', 0x01,  'C', 0x00),//Mars01C
@@ -46,14 +41,16 @@ typedef enum tagTOF_DEV_TYPE
 	TOF_DEV_MARS05B            = MAKE_UNIQUE_ID('M', 0x05,  'B', 0x00),//Mars05B
 	TOF_DEV_MARS05B_BCTC       = MAKE_UNIQUE_ID('M', 0x05,  'B', 0x01),//Mars05B(BCTC版本)
 	TOF_DEV_MARS05B_BCTC_SUNNY = MAKE_UNIQUE_ID('M', 0x05,  'B', 0x02),//Mars05B(BCTC版本_sunny)
-	TOF_DEV_USBTOF_HI          = MAKE_UNIQUE_ID('U',  'T',  'H', 0x00),//UsbTof-Hi
-	TOF_DEV_DREAM              = MAKE_UNIQUE_ID('D',  'R',  'M', 0x00),//DREAM
 	TOF_DEV_HOT002             = MAKE_UNIQUE_ID('H',  'O',  'T', 0x02),//HOT002
 	TOF_DEV_HOT002A            = MAKE_UNIQUE_ID('H',  'O',  'T', 0x2a),//HOT002A
+	TOF_DEV_HOT007             = MAKE_UNIQUE_ID('H',  'O',  'T', 0x07),//HOT0007
 	TOF_DEV_HSP008             = MAKE_UNIQUE_ID('H',  'S',  'P', 0x08),//HSP008
 	TOF_DEV_HSR003             = MAKE_UNIQUE_ID('H',  'S',  'R', 0x03),//HSR003
 	TOF_DEV_HSR003A            = MAKE_UNIQUE_ID('H',  'S',  'R', 0x3A),//HSR003A
+	TOF_DEV_HSR003A1           = MAKE_UNIQUE_ID('H',  'S', 0x03, 0xA1),//HSR003A1
+	TOF_DEV_HSR006             = MAKE_UNIQUE_ID('H',  'S',  'R', 0x06),//HSR006
 	TOF_DEV_HSR004             = MAKE_UNIQUE_ID('H',  'S',  'R', 0x04),//HSR004
+	TOF_DEV_HSR005             = MAKE_UNIQUE_ID('H',  'S',  'R', 0x05),//HSR005
 	TOF_DEV_HST003             = MAKE_UNIQUE_ID('H',  'S',  'T', 0x03),//HST003
 	TOF_DEV_HST006             = MAKE_UNIQUE_ID('H',  'S',  'T', 0x06),//HST006
 	TOF_DEV_HST007             = MAKE_UNIQUE_ID('H',  'S',  'T', 0x07),//HST007
@@ -61,23 +58,67 @@ typedef enum tagTOF_DEV_TYPE
 	TOF_DEV_HST009             = MAKE_UNIQUE_ID('H',  'S',  'T', 0x09),//HST009
 	TOF_DEV_HST010             = MAKE_UNIQUE_ID('H',  'S',  'T', 0x10),//HST010
 	TOF_DEV_HST013             = MAKE_UNIQUE_ID('H',  'S',  'T', 0x13),//HST013
-	TOF_DEV_SEEKER07C	       = MAKE_UNIQUE_ID('S',  'E',  'K', 0x7C),//seeker07c
-	TOF_DEV_SEEKER08A          = MAKE_UNIQUE_ID('S',  'E',  'K', 0x8A),//seeker08A
 	TOF_DEV_LOGITECH_C525      = MAKE_UNIQUE_ID('L',  'G', 0xC5, 0x25),//Logitech C525
 
 
 	//这部分为demo模块
-	TOF_DEV_DEMO_3DCP_NET      = MAKE_UNIQUE_ID(0xde, 0x3d, 'C', 0x00),//demo版3DCP（网络版）
 	TOF_DEV_DEMO_3DCP          = MAKE_UNIQUE_ID(0xde, 0x3d, 'C', 0x01),//demo版3DCP
-	TOF_DEV_DEMO_C00P01A_NET   = MAKE_UNIQUE_ID(0xde, 0xC0, 'P', 0x1A),//demo版C00P01A的RGBD模块（网络版）
 	TOF_DEV_DEMO_UPG           = MAKE_UNIQUE_ID(0xde,  'U', 'P',  'G'),//demo版UPG
 	TOF_DEV_DEMO_GENERAL_UVC   = TOF_DEV_DEMO_UPG,//demo版GeneralUvc
 
 }TOF_DEV_TYPE;
 
+typedef enum tagPRODUCT_SERIES
+{
+	PRODUCT_SERIES_TOF = 0,//TOF系列产品，图像是WxH的矩阵形态
+	PRODUCT_SERIES_LSL = 1,//线结构光系列产品，图像是射线+角度方式，一般采用极坐标显示
+
+}PRODUCT_SERIES;
+
+typedef struct tagLslFrameDataChan
+{
+	UINT64 frameID;//帧ID
+	UINT64 timeStamp;//时间戳
+
+	UINT32 frameWidth;//输出的数据的宽
+	UINT32 frameHeight;//输出的数据的高
+	UINT8* pGrayData;//灰度数据
+
+	void*  pRawData;//raw数据（支持raw数据的板子才可以）
+	UINT32 nRawDataLen;//pRawData内raw数据长度，字节数
+
+
+	UINT32 nPointCnt;//输出的点个数
+	FLOAT32* pDepthData;//射线距离（以毫米为单位）
+	FLOAT32* pAngle;//角度（以度数为单位，正前方表示0度）
+	UINT8* pConfidence;//置信度数据
+	PointData* pPointData;//点云数据（以米为单位）,会有超量程的点
+	PointData* pPointDataInRange;//点云数据（以米为单位）,已滤除超量程的点
+
+
+	//扩展数据(一般针对客户特殊需求)，不同设备/不同客户均不同，可能为空；
+	void*  pExtData;//扩展数据
+	UINT32 nExtDataLen;//pExtData内扩展数据长度，字节数
+
+}LslFrameDataChan;
+
+#define SENSOR_CHAN_MAX_CNT (5)
+typedef struct tagLslFrameData
+{
+	UINT8 nChanCnt;//线性结构光产品通道个数(每个sensor一个通道)
+
+	LslFrameDataChan chan[SENSOR_CHAN_MAX_CNT];//各个通道输出的深度数据个数
+
+}LslFrameData;
+
 
 typedef struct tagTofFrameData
 {
+	PRODUCT_SERIES productSeries;//产品系列
+
+
+	/*>>>>>>>>>>>>>>>这部分为TOF产品的数据>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+
 	UINT64 frameID;//帧ID
 	UINT64 timeStamp;//时间戳
 	UINT32 frameWidth;//输出的数据的宽
@@ -110,6 +151,17 @@ typedef struct tagTofFrameData
 	void*  pExtData;//扩展数据
 	UINT32 nExtDataLen;//pExtData内扩展数据长度，字节数
 
+	/*<<<<<<<<<<<<<<<这部分为TOF产品的数据<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+
+
+
+
+	/*>>>>>>>>>>>>>>>这部分为线性结构光产品的数据>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+
+	LslFrameData* pLsl;//线性结构光产品的数据
+
+	/*<<<<<<<<<<<<<<<这部分为线性结构光产品的数据<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+
 }TofFrameData;
 
 typedef enum tagANALOG_GAIN_MODE
@@ -132,7 +184,6 @@ typedef struct tagRgbFrameData
 	UINT32 frameHeight;//输出的数据的高
 
 	COLOR_FORMAT formatType;//指明pFrameData内数据帧的格式
-	COLOR_FORMAT formatTypeOrg;//指明pFrameData内数据帧的格式(编码压缩之前的格式)
 	UINT32 nFrameLen;
 	UINT8* pFrameData;
 
@@ -202,7 +253,24 @@ typedef struct tagTofDeviceDescriptorWithFd
 	UINT16 usbDevPID;//USB设备的PID
 
 }TofDeviceDescriptorWithFd;
-	
+
+//帧率
+typedef struct tagFpsGroup
+{
+	UINT8 tof;//TOF帧率
+	UINT8 rgb;//RGB帧率
+
+}FpsGroup;
+
+#define FPS_MAX_CNT (4)
+typedef struct tagFpsGroupList
+{
+	UINT8 nCnt;
+	FpsGroup fps[FPS_MAX_CNT];
+
+}FpsGroupList;
+
+
 typedef struct tagTofDeviceCapability
 {
 	TOF_MODE tofMode;
@@ -211,9 +279,18 @@ typedef struct tagTofDeviceCapability
 	SBOOL bTofSupported;
 	UINT32 tofResWidth;
 	UINT32 tofResHeight;
-	
+	UINT32 tofPointCnt;//光斑数据的个数
+
+	SBOOL bMatrixImageSupported;//是否支持矩阵格式的图像
+	SBOOL bPolarImageSupported;//是否支持极坐标格式的图像
+
 	//TOF Expouse
 	UINT32 supportedTofExpMode;//EXP_MODE的组合
+	//TOF 灰度 Expouse
+	UINT32 supportedTofGrayExpMode;//EXP_MODE的组合
+	//TOF 相位 Expouse
+	UINT32 supportedTofPhaseExpMode;//EXP_MODE的组合
+
 	//TOF Analog Gain
 	UINT32 supportedTofAnalogGainMode;//ANALOG_GAIN_MODE的组合
 	//TOF Digital Gain
@@ -239,12 +316,15 @@ typedef struct tagTofDeviceCapability
 	UINT8 nTofFilterLevelMin; //最小TOF滤波等级（宽松）
 	UINT8 nTofFilterLevelMax; //最大TOF滤波等级（严格）
 
+	//运动补偿矩阵参数
+	SBOOL bMotionMatrixSupported; 
+
 	//RGB
 	SBOOL bRgbSupported;
 	COLOR_FORMAT rgbColorFormat;//传出的RGB数据格式
-	COLOR_FORMAT rgbColorFormatOrg;//传出的RGB数据格式(编码压缩之前的格式)
 	UINT32 rgbResWidth;
 	UINT32 rgbResHeight;
+	SBOOL bRgbDecParamSupported;//是否支持使用用户的自定义解码参数(包括解码接口)
 
 	//RGBD
 	SBOOL bRgbDSupported;
@@ -260,12 +340,16 @@ typedef struct tagTofDeviceCapability
 	SBOOL bFastUpgradeFirmwareSupported;
 	//设备重启
 	SBOOL bRebootDevSupported;
-	//主从机间同步时间
+	//主从机间时间戳同步
 	SBOOL bMasterSlaveSyncTimeSupported;
 	//烧写TOF模组的杂散光矫正参数
 	SBOOL bBurnTofINSParamSupported;
+	//烧写模组信息卡
+	SBOOL bBurnModuleInfoCardSupported;
 	//烧写TOF标定文件
 	SBOOL bBurnTofCalibDataSupported;
+	//烧写RGBD标定文件
+	SBOOL bBurnRgbdCalibDataSupported;
 	//投射器电流设置
 	SBOOL bLedCurrentSupported;
 	//多设备抗干扰
@@ -275,6 +359,13 @@ typedef struct tagTofDeviceCapability
 	//客户自定义数据
 	SBOOL bGuestCustomDataSupported;
 	UINT32 nGuestCustomDataMaxLen; //允许写入的客户自定义数据最大字节数
+	//烧写序列号
+	SBOOL bBurnSNSupported;
+	//烧写TOF模组MID数据
+	SBOOL bBurnTofMidDataSupported;
+	UINT32 nTofMidDataMaxLen; //允许写入的MID数据最大字节数
+	//支持的帧率
+	FpsGroupList supportedFps;
 
 	//
 
@@ -283,11 +374,14 @@ typedef struct tagTofDeviceCapability
 typedef struct tagTofDeviceInfo
 {
 	//BASIC information
+	PRODUCT_SERIES productSeries;//产品系列
 	TOF_DEV_TYPE devType;//用于区分是哪款设备
 	SCHAR szDevName[32];
 	SCHAR szDevId[64];//设备/模块的序列号（标识设备唯一性）
 	SCHAR szFirmwareVersion[32];//固件版本信息
+	SBOOL bSupDevCalib;//是否支持模块整机标定
 	UINT32 tofModuleId;//TOF模组编号
+	UINT8 depthStreamChanCnt;//深度数据流通道数
 
 	//Capabilities
 	UINT32 capCnt; //实际使用的能力个数，不超过TOF_MAX_CAPS_CNT
@@ -349,9 +443,18 @@ typedef struct tagFirmwareUpgradeStatus
 //固件升级的实时状态回调函数
 typedef void (*FNFirmwareUpgradeStatus)(FirmwareUpgradeStatus *statusData, void* pUserData);
 
+//被升级的设备
+typedef enum tagUpgradedDevice
+{
+	UpgradedDevice_Direct = 0,//与SDK直连的设备
+	UpgradedDevice_Indirect = 1,//与SDK直连设备上挂载着的从机设备（级联系统）
+}UpgradedDevice;
+
 //固件升级数据
 typedef struct tagFirmwareUpgradeData
 {
+	UpgradedDevice upgradedDev;//被升级的设备
+
 	UINT8* pData;//指向固件数据（完整的固件数据首地址）
 	UINT32 nDataLen;//pData内固件数据长度（完整的固件数据长度）
 
@@ -365,15 +468,12 @@ typedef struct tagRebootDev
 	UINT8 byRes[4];//字节对齐，预留
 }RebootDev;
 
-//主从机间同步时间
-typedef struct tagMasterSlaveSyncTime
+//主从机间时间戳同步参数
+typedef struct tagMasterSlaveSyncTimeParam
 {
-	UINT64 hostSendTimestamp;//主机发送命令的时间（主机的本地时间）
-	UINT64 slaveRecvTimestamp;//从机接收到命令的时间（从机的本地的时间）
-	UINT64 slaveSendTimestamp;//从机发送命令的时间（从机的本地时间）
-	UINT64 hostRecvTimestamp;//主机接收到命令的时间（主机的本地的时间）
+	UINT32 interval;//多久进行一次同步（毫秒），默认每隔60秒进行一次同步
 
-}MasterSlaveSyncTime;
+}MasterSlaveSyncTimeParam;
 
 //TOF模拟增益
 typedef struct tagTofAnalogGain
@@ -525,11 +625,36 @@ typedef struct tagTofFilterLevel
 }TofFilterLevel;
 
 //TOF模组信息卡数据详情
-typedef struct tagTofModuleInfoCardDetail
+#define MODULE_SN_MAX_LEN (32)
+typedef struct tagModuleInfoCardDetail
 {
-	UINT8 szModulePartNO[32];//模组料号
+	UINT8 szModulePartNO[MODULE_SN_MAX_LEN + 4];//模组料号
 
-}TofModuleInfoCardDetail;
+}ModuleInfoCardDetail;
+
+//设备序列号
+#define DEV_SN_MAX_LEN (32)
+typedef struct tagDeviceSN
+{
+	SCHAR szData[DEV_SN_MAX_LEN + 4];//序列号
+
+}DeviceSN;
+
+//运动补偿矩阵参数
+typedef struct tagMotionMatrix
+{
+	FLOAT32 R[9];//后曝光数据转到先曝光数据的旋转矩阵--运动补偿
+	FLOAT32 T[3];//后曝光数据转到先曝光数据的平移矩阵--运动补偿
+}MotionMatrix;
+
+//其他详细标定参数
+typedef struct tagOtherDetailCalibParam
+{
+	//
+	FLOAT32 FppnValidRate;//FPPN有效比，0-100%
+
+}OtherDetailCalibParam;
+
 
 typedef enum tagTOF_DEV_PARAM_TYPE
 {
@@ -544,7 +669,7 @@ typedef enum tagTOF_DEV_PARAM_TYPE
 	TOF_DEV_PARAM_UpgradeFirmware        = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x08),//升级固件
 	TOF_DEV_PARAM_RebootDev              = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x09),//设备重启
 	TOF_DEV_PARAM_StereoLensParameter    = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x0a),//双目相机参数
-	TOF_DEV_PARAM_GetMasterSlaveSyncTime = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x0b),//获取主从机间同步时间
+	TOF_DEV_PARAM_MasterSlaveSyncTime    = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x0b),//主从机间时间戳同步参数
 	TOF_DEV_PARAM_TofAnalogGain          = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x0c),//TOF模拟增益
 	TOF_DEV_PARAM_TofDigitalGain         = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x0d),//TOF数字增益
 	TOF_DEV_PARAM_TofLensParameterV20    = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x0e),//TOF模组内参和畸变（V2.0版本）
@@ -563,9 +688,18 @@ typedef enum tagTOF_DEV_PARAM_TYPE
 	TOF_DEV_PARAM_TofMpiCorrect          = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x1b),//TOF多路径矫正
 	TOF_DEV_PARAM_TofMpiFuse             = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x1c),//TOF多路径矫正结果和传统算法的融合
 	TOF_DEV_PARAM_TofFilterLevel         = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x1d),//TOF滤波等级
-	TOF_DEV_PARAM_TofModuleInfoCard      = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x1e),//TOF模组信息卡数据
-	TOF_DEV_PARAM_TofModuleInfoCardDetail= MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x1f),//TOF模组信息卡数据详情
+	TOF_DEV_PARAM_ModuleInfoCard         = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x1e),//模组信息卡数据
+	TOF_DEV_PARAM_ModuleInfoCardDetail   = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x1f),//模组信息卡数据详情
 	TOF_DEV_PARAM_GuestCustomData        = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x20),//客户的自定义数据
+	TOF_DEV_PARAM_DeviceSN               = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x21),//设备序列号
+	TOF_DEV_PARAM_MotionMatrix           = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x22),//运动补偿矩阵参数
+	TOF_DEV_PARAM_RgbdCalibCheckCode     = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x23),//RGBD模组标定文件的校验码
+	TOF_DEV_PARAM_ModuleInfoCardCheckCode = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x24),//模组信息卡的校验码
+	TOF_DEV_PARAM_TofGrayExp             = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x25),//TOF模组灰度曝光
+	TOF_DEV_PARAM_TofPhaseExp            = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x26),//TOF模组相位曝光
+	TOF_DEV_PARAM_OtherDetailCalibParam  = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x27),//其他详细标定参数
+	TOF_DEV_PARAM_TofMid                 = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x28),//TOF模组MID数据
+	TOF_DEV_PARAM_Fps                    = MAKE_UNIQUE_ID(0x00, 0x00, 0x00, 0x29),//帧率
 
 }TOF_DEV_PARAM_TYPE;
 
@@ -588,7 +722,7 @@ typedef struct tagTofDeviceParamV20
 		FirmwareUpgradeData    struFirmware;//固件升级数据【当type为TOF_DEV_PARAM_UpgradeFirmware时有效】
 		RebootDev              struRebootDev;//设备重启【当type为TOF_DEV_PARAM_RebootDev时有效】
 		StereoLensParameter    struStereoLensParameter;//双目相机参数【当type为TOF_DEV_PARAM_StereoLensParameter时有效】
-		MasterSlaveSyncTime    struMasterSlaveSyncTime;//主从机间同步时间【当type为TOF_DEV_PARAM_GetMasterSlaveSyncTime时有效】
+		MasterSlaveSyncTimeParam struMasterSlaveSyncTime;//主从机间时间戳同步参数【当type为TOF_DEV_PARAM_MasterSlaveSyncTime时有效】
 		TofAnalogGain          struTofAnalogGain;//TOF模拟增益【当type为TOF_DEV_PARAM_TofAnalogGain时有效】
 		TofDigitalGain         struTofDigitalGain;//TOF数字增益【当type为TOF_DEV_PARAM_TofDigitalGain时有效】
 		TofFrameDataPixelOffset struPixelOffset;//TOF回调函数里输出的TOF数据相对于RAW数据的像素偏移个数【当type为TOF_DEV_PARAM_TofFrameDataPixelOffset时有效】
@@ -605,9 +739,18 @@ typedef struct tagTofDeviceParamV20
 		TofMpiCorrect          struTofMpiCorrect;//TOF多路径矫正【当type为TOF_DEV_PARAM_TofMpiCorrect时有效】
 		TofMpiFuse             struTofMpiFuse;//TOF多路径矫正结果和传统算法的融合【当type为TOF_DEV_PARAM_TofMpiFuse时有效】
 		TofFilterLevel         struTofFilterLevel;//TOF滤波等级【当type为TOF_DEV_PARAM_TofFilterLevel时有效】
-		GeneralBlockData       struTofModuleInfoCard;//TOF模组信息卡数据【当type为TOF_DEV_PARAM_TofModuleInfoCard时有效】
-		TofModuleInfoCardDetail   struTofModuleInfoCardDetail;//TOF模组信息卡数据详情【当type为TOF_DEV_PARAM_TofModuleInfoCardDetail时有效】
+		GeneralBlockData       struModuleInfoCard;//TOF模组信息卡数据【当type为TOF_DEV_PARAM_ModuleInfoCard时有效】
+		ModuleInfoCardDetail   struModuleInfoCardDetail;//TOF模组信息卡数据详情【当type为TOF_DEV_PARAM_ModuleInfoCardDetail时有效】
 		GeneralBlockData       struGuestCustomData;//客户的自定义数据【当type为TOF_DEV_PARAM_GuestCustomData时有效】
+		DeviceSN               struSN;//设备序列号【当type为TOF_DEV_PARAM_DeviceSN时有效】
+		MotionMatrix           struMotionMatrix;//运动补偿矩阵参数【当type为TOF_DEV_PARAM_MotionMatrix时有效】
+		ParamsCheckCode        struRgbdCalibCheckCode;//RGBD标定文件的校验码【当type为TOF_DEV_PARAM_RgbdCalibCheckCode时有效】
+		ParamsCheckCode        struModuleInfoCardCheckCode;//模组信息卡的校验码【当type为TOF_DEV_PARAM_ModuleInfoCardCheckCode时有效】
+		TofExpouse             struTofGrayExp;//TOF模组灰度曝光【当type为TOF_DEV_PARAM_TofGrayExp时有效】
+		TofExpouse             struTofPhaseExp;//TOF模组相位曝光【当type为TOF_DEV_PARAM_TofPhaseExp时有效】
+		OtherDetailCalibParam  struOtherDetailCalibParam;//其他详细标定参数【当type为TOF_DEV_PARAM_OtherDetailCalibParam时有效】
+		GeneralBlockData       struTofMid;//TOF模组MID数据【当type为TOF_DEV_PARAM_TofMid时有效】
+		FpsGroup               struFps;//帧率【当type为TOF_DEV_PARAM_Fps时有效】
 	}uParam;
 }TofDeviceParamV20;
 
@@ -644,6 +787,9 @@ TOFDDLL TOFRET TOFD_Uninit(void);
 
 //获取SDK版本号（返回值为字符串型版本号）
 TOFDDLL SCHAR* TOFD_GetSDKVersion(void);
+
+//获取主机时间戳
+TOFDDLL UINT64 TOFD_GetHostTimeStamp(void);
 
 //搜索到系统里SDK支持的所有设备
 TOFDDLL TOFRET TOFD_SearchDevice(TofDeviceDescriptor **ppDevsDesc, UINT32* pDevNum);

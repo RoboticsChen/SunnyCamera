@@ -1,7 +1,5 @@
 #!/bin/bash
 
-pip uninstall sunny_camera -y 
-
 PROJECT_DIR=$(pwd)/sunny_camera
 echo ${PROJECT_DIR}
 SDK_ROOT_DIR=${PROJECT_DIR}

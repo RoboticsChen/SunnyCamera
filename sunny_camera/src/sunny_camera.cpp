@@ -71,19 +71,19 @@ py::array_t<float> mat_to_py(cv::Mat input)
 class Camera
 {
 private:
-    int cameraType;
+    int cameraType = 2;
     bool inited;
     // 声明数据变量
     Intrinsic camera_INTRINSIC;
+    Distortion camera_DISTORTION;
     TofFrameData tofFrameData;
     RgbFrameData rgbFrameData;
 
 public:
     // 设备
     HTOFD hTofD;
-    Camera(int camera_type)
+    Camera()
     {
-        cameraType = camera_type;
         inited = false;
     }
 
@@ -144,7 +144,7 @@ public:
                 {
                     std::this_thread::sleep_for(std::chrono::milliseconds(100)); // 单位是毫秒
                 }
-                init_intrinsic();
+                init_intrinsic_distortion();
                 thread_capture.detach();
                 thread_update.detach();
                 // std::thread thread_test([this]()
@@ -172,7 +172,7 @@ public:
         }
     }
 
-    void init_intrinsic()
+    void init_intrinsic_distortion()
     {
         if (cameraType == 1)
         {
@@ -188,10 +188,13 @@ public:
             rgbI.at<float>(2, 1) = 0;
             rgbI.at<float>(2, 2) = 1;
             camera_INTRINSIC.rgb_INTRINSIC = rgbI;
-            // std::cout << "rgb_INTRINSIC:" << std::endl
-            //           << rgbGeneral->fx << "," << 0 << "," << rgbGeneral->cx << "\n"
-            //           << 0 << "," << rgbGeneral->fy << "," << rgbGeneral->cy << "\n"
-            //           << 0 << "," << 0 << "," << 1 << std::endl;
+            cv::Mat rgbD = cv::Mat::zeros(1, 5, CV_32F);
+            rgbD.at<float>(0, 0) = rgbGeneral->k1;
+            rgbD.at<float>(0, 1) = rgbGeneral->k2;
+            rgbD.at<float>(0, 2) = rgbGeneral->p1;
+            rgbD.at<float>(0, 3) = rgbGeneral->p2;
+            rgbD.at<float>(0, 4) = rgbGeneral->k3;
+            camera_DISTORTION.rgb_DISTORTION = rgbD;
 
             // // depth intrinsic
             TofModuleLensGeneral *tofGeneral = &(frameData.tofDeviceParam.uParam.general);
@@ -206,10 +209,13 @@ public:
             depthI.at<float>(2, 1) = 0;
             depthI.at<float>(2, 2) = 1;
             camera_INTRINSIC.depth_INTRINSIC = depthI;
-            // std::cout << "depth_INTRINSIC:" << std::endl
-            //           << tofGeneral->fx << "," << 0 << "," << tofGeneral->cx << "\n"
-            //           << 0 << "," << tofGeneral->fy << "," << tofGeneral->cy << "\n"
-            //           << 0 << "," << 0 << "," << 1 << std::endl;
+            cv::Mat depthD = cv::Mat::zeros(1, 5, CV_32F);
+            depthD.at<float>(0, 0) = tofGeneral->k1;
+            depthD.at<float>(0, 1) = tofGeneral->k2;
+            depthD.at<float>(0, 2) = tofGeneral->p1;
+            depthD.at<float>(0, 3) = tofGeneral->p2;
+            depthD.at<float>(0, 4) = tofGeneral->k3;
+            camera_DISTORTION.depth_DISTORTION = depthD;
         }
         else if (cameraType == 2)
         {
@@ -226,10 +232,12 @@ public:
             rgbI.at<float>(2, 1) = 0;
             rgbI.at<float>(2, 2) = 1;
             camera_INTRINSIC.rgb_INTRINSIC = rgbI;
-            // std::cout << "fish_rgb_INTRINSIC:" << std::endl
-            //           << rgbFish->fx << "," << 0 << "," << rgbFish->cx << "\n"
-            //           << 0 << "," << rgbFish->fy << "," << rgbFish->cy << "\n"
-            //           << 0 << "," << 0 << "," << 1 << std::endl;
+            cv::Mat rgbD = cv::Mat::zeros(1, 4, CV_32F);
+            rgbD.at<float>(0, 0) = rgbFish->k1;
+            rgbD.at<float>(0, 1) = rgbFish->k2;
+            rgbD.at<float>(0, 2) = rgbFish->k3;
+            rgbD.at<float>(0, 3) = rgbFish->k4;
+            camera_DISTORTION.rgb_DISTORTION = rgbD;
 
             // // depth intrinsic
             TofModuleLensFishEye *tofFish = &(frameData.tofDeviceParam.uParam.fishEye);
@@ -244,16 +252,18 @@ public:
             depthI.at<float>(2, 1) = 0;
             depthI.at<float>(2, 2) = 1;
             camera_INTRINSIC.depth_INTRINSIC = depthI;
-            // std::cout << "depth_INTRINSIC:" << std::endl
-            //           << tofFish->fx << "," << 0 << "," << tofFish->cx << "\n"
-            //           << 0 << "," << tofFish->fy << "," << tofFish->cy << "\n"
-            //           << 0 << "," << 0 << "," << 1 << std::endl;
+            cv::Mat depthD = cv::Mat::zeros(1, 4, CV_32F);
+            depthD.at<float>(0, 0) = tofFish->k1;
+            depthD.at<float>(0, 1) = tofFish->k2;
+            depthD.at<float>(0, 2) = tofFish->k3;
+            depthD.at<float>(0, 3) = tofFish->k4;
+            camera_DISTORTION.depth_DISTORTION = depthD;
         }
         std::cout << "intrinsic initialized !!!" << std::endl;
         printf("*********************init success!*********************\n");
     }
 
-    bool deinit(HTOFD hTofD)
+    bool deinit()
     {
         TOFD_CloseDevice(hTofD);
         TOFD_Uninit();
@@ -309,6 +319,24 @@ public:
         else
         {
             printf("Error image_type to getINTRINSIC !!!");
+        }
+        return result;
+    }
+
+    py::array_t<float> DISTORTION(std::string image_type = "rgb") const
+    {
+        py::array_t<float> result;
+        if (image_type == "rgb")
+        {
+            result = mat_to_py(camera_DISTORTION.rgb_DISTORTION);
+        }
+        else if (image_type == "depth")
+        {
+            result = mat_to_py(camera_DISTORTION.depth_DISTORTION);
+        }
+        else
+        {
+            printf("Error image_type to getDISTORTION !!!");
         }
         return result;
     }
@@ -468,7 +496,7 @@ public:
 //     {
 //         std::this_thread::sleep_for(std::chrono::milliseconds(100)); // 单位是毫秒
 //     }
-//     airbot_camera.init_intrinsic();
+//     airbot_camera.init_intrinsic_distortion();
 
 //     // test
 //     std::thread thread_test([&airbot_camera]()
@@ -483,10 +511,11 @@ PYBIND11_MODULE(sunny_camera, m)
     m.doc() = "sunny_camera";
 
     py::class_<Camera>(m, "Camera")
-        .def(py::init<int>())
+        .def(py::init())
         .def("WIDTH", &Camera::WIDTH)
         .def("HEIGHT", &Camera::HEIGHT)
         .def("INTRINSIC", &Camera::INTRINSIC)
+        .def("DISTORTION", &Camera::DISTORTION)
         .def("init", &Camera::init)
         .def("deinit", &Camera::deinit)
         .def("get_rgb", &Camera::get_rgb)

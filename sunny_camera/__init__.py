@@ -1,3 +1,3 @@
-def Camera(camera_type):
+def Camera():
     from .libs import sunny_camera
-    return sunny_camera.Camera(camera_type)
+    return sunny_camera.Camera()

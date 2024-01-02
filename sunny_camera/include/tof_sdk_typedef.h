@@ -80,6 +80,10 @@ typedef enum tagTOFRET
 	TOFRET_ERROR_DECOMPRESS_DATA = 0x80000010,
 	/** Check crc failed */
 	TOFRET_ERROR_CRC_CHECK = 0x80000011,
+	/** Operation not allowed */
+	TOFRET_ERROR_NOT_ALLOWED = 0x80000012,
+	/** Invalid data length */
+	TOFRET_ERROR_DATA_LEN = 0x80000013,
 
 	/** USB write error */
 	TOFRET_ERROR_USB_WRITE = 0x80010001,
@@ -176,6 +180,7 @@ typedef enum tagTOF_FILTER
 	TOF_FILTER_Saturation          = 0x00080000,
 	TOF_FILTER_StrayLightCorr      = 0x00100000,
 	TOF_FILTER_Gauss               = 0x00200000,
+	TOF_FILTER_RadialHoleFilling   = 0x00400000,
 
 
 }TOF_FILTER;
@@ -240,6 +245,15 @@ typedef struct tagRgbData
 	UINT8 g;
 	UINT8 b;
 }RgbData;
+
+
+typedef struct tagBgraData
+{
+	UINT8 b;
+	UINT8 g;
+	UINT8 r;
+	UINT8 a;
+}BgraData;
 
 
 //RGB模组内参和畸变（通用模型）

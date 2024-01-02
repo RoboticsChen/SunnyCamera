@@ -48,6 +48,12 @@ typedef struct tagIntrinsic
     cv::Mat depth_INTRINSIC;
 } Intrinsic;
 
+typedef struct tagDistortion
+{
+    cv::Mat rgb_DISTORTION;
+    cv::Mat depth_DISTORTION;
+} Distortion;
+
 //
 typedef struct tagStreamCallBack
 {
