@@ -15,16 +15,19 @@ numpy
 pybind11
 ```
 ## Installation
-
+```
+conda activate your_python_env
+```
 ```shell
 git clone git@github.com:RoboticsChen/Sunny_camera.git
-cd sunny_camera
+cd Sunny_camera
 chmod +x *.sh
-. build.sh     
+./build.sh
 sudo ./install.sh
 pip install -e .
 ```
->note: use command (. build.sh) instead of (./build.sh), otherwise you should source ~/.bashrc before next step
+>note: If the build fails, check whether python_env is the desired environment for installing the driver.
+
 
 # Python API Reference
 
@@ -45,4 +48,4 @@ pip install -e .
     - Returns: `Dict[str, np.ndarray]` - The captured TOF data.
       - `"depth_image"`: `np.ndarray` - The depth image.
       - `"aligned_rgb"`: `np.ndarray` - The aligned RGB image.
-      - `"point_cloud"`: `np.ndarray` - The point cloud data.
+      - `"point_cloud"`: `np.ndarray` - The point cloud data(N*3).

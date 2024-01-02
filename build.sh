@@ -58,7 +58,7 @@ else
     echo "LD_LIBRARY_PATH added to .bashrc."
 fi
 
-source ~/.bashrc
+export LD_LIBRARY_PATH=${LIB_PATH}:\$LD_LIBRARY_PATH
 
 echo "-----------------------build success--------------------------"
 echo "Please re-activate python env: ${PYTHON_ENV}!"
