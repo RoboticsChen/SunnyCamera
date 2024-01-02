@@ -2,11 +2,13 @@ from setuptools import setup, find_packages
 
 setup(
     name='sunny_camera',
-    version='1.0.0',
+    version='1.1.0',
     packages=find_packages(),  # 自动查找项目中的包
     install_requires=[
         'numpy',
         'pybind11',
+        'pillow',
+        'matplotlib',
     ],
     # 其他配置选项
     author='ZhiXing Chen',

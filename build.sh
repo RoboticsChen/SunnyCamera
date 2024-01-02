@@ -39,28 +39,40 @@ cd ${SDK_BUILD_DIR}
 #cmake -DCMAKE_TOOLCHAIN_FILE=${SUNNY_CMAKE_TOOLCHAIN_FILE} ..
  
 PYTHON_ENV=$(which python)
-PYTHON_VERSION="$(python -c "import sys; print(sys.version[:3])")"
+PYTHON_VERSION="$(python -c "import sys; print('.'.join(sys.version.split('.')[:2]))")"
 PYTHON_INCLUDE="$(echo "$(which python)" | awk -F/bin/python '{print $1}')/include/python${PYTHON_VERSION}"
 PYTHON_LIBRARIES="$(echo "$(which python)" | awk -F/bin/python '{print $1}')/lib"
+
 cmake -DPYTHON_ENV=${PYTHON_ENV} -DPYTHON_VERSION=${PYTHON_VERSION} -DPYTHON_LIBRARIES=${PYTHON_LIBRARIES} -DPYTHON_INCLUDE=${PYTHON_INCLUDE} ..
+# 判断构建是否成功
+if [ $? -eq 0 ]; then
+    # 构建成功
+    make
+    if [ $? -eq 0 ]; then
+        # 编译成功
+        cd ${ORIGIN_DIR}
 
-make
-cd ${ORIGIN_DIR}
+        LIB_PATH=/usr/local/lib
 
-LIB_PATH=/usr/local/lib
+        # 检查 .bashrc 文件是否已经包含 SUNNY_CAMERA_LIBRARY_PATH 的设置
+        if grep -qF "export LD_LIBRARY_PATH=${LIB_PATH}" ~/.bashrc; then
+            echo "LD_LIBRARY_PATH is already set in .bashrc."
+        else
+            # 在 .bashrc 文件末尾添加 SUNNY_CAMERA_LIBRARY_PATH 设置
+            echo "export LD_LIBRARY_PATH=${LIB_PATH}:\$LD_LIBRARY_PATH" >> ~/.bashrc
+            echo "LD_LIBRARY_PATH added to .bashrc."
+        fi
 
-# 检查 .bashrc 文件是否已经包含 SUNNY_CAMERA_LIBRARY_PATH 的设置
-if grep -qF "export LD_LIBRARY_PATH=${LIB_PATH}" ~/.bashrc; then
-    echo "LD_LIBRARY_PATH is already set in .bashrc."
+        export LD_LIBRARY_PATH=${LIB_PATH}:$LD_LIBRARY_PATH
+        
+        echo "-----------------------build success--------------------------"
+    else
+        cd ${ORIGIN_DIR}
+        # 编译失败
+        echo "----------build failed, comfirm the requirements satisfied and python_env activated----------"
+    fi
 else
-    # 在 .bashrc 文件末尾添加 SUNNY_CAMERA_LIBRARY_PATH 设置
-    echo "export LD_LIBRARY_PATH=${LIB_PATH}:\$LD_LIBRARY_PATH" >> ~/.bashrc
-    echo "LD_LIBRARY_PATH added to .bashrc."
+    cd ${ORIGIN_DIR}
+    # 构建失败
+    echo "----------cmake failed, comfirm the requirements satisfied and python_env activated----------"
 fi
-
-export LD_LIBRARY_PATH=${LIB_PATH}:\$LD_LIBRARY_PATH
-
-echo "-----------------------build success--------------------------"
-echo "Please re-activate python env: ${PYTHON_ENV}!"
-echo "-------^^^^^^^^^^^--------------------------------------------"
-

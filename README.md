@@ -7,27 +7,40 @@ cd opencv
 mkdir build && cd build
 cmake ..
 make -j12
-make install
+sudo make install
+cd ..
 ```
 ```shell
-# pip install 
-numpy
-pybind11
+# pybind
+git clone https://github.com/pybind/pybind11.git
+cd pybind11
+mkdir build && cd build
+cmake ..
+make -j12
+sudo make install
+cd ..
 ```
 ## Installation
-```
+```shell
 conda activate your_python_env
 ```
 ```shell
-git clone git@github.com:RoboticsChen/Sunny_camera.git
+git clone https://github.com/RoboticsChen/Sunny_camera.git
 cd Sunny_camera
 chmod +x *.sh
-./build.sh
+. build.sh
 sudo ./install.sh
 pip install -e .
 ```
->note: If the build fails, check whether python_env is the desired environment for installing the driver.
+>Note:
+-Use command (. build.sh) instead of (./build.sh), otherwise you should open a new terminal for path set activate. 
+-If build fails, check whether python_env is the desired environment for installing the driver.
 
+## Python API Reference
+Use following command to verify installation
+```shell
+python demo.py
+```
 
 # Python API Reference
 
