@@ -1,0 +1,21 @@
+# SunnyCameraConfig.cmakein
+@PACKAGE_INIT@
+
+# 设置项目的名称和版本
+set(SunnyCamera_VERSION_MAJOR @SunnyCamera_VERSION_MAJOR@)
+set(SunnyCamera_VERSION_MINOR @SunnyCamera_VERSION_MINOR@)
+
+# 配置文件
+configure_package_config_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/SunnyCameraConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/SunnyCameraConfig.cmake"
+  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/SunnyCamera
+)
+
+# 安装配置文件
+install(
+  FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/SunnyCameraConfig.cmake"
+  DESTINATION
+    ${CMAKE_INSTALL_LIBDIR}/cmake/SunnyCamera
+)

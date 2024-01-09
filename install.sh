@@ -14,24 +14,15 @@ fi
 
 cd ${SDK_BUILD_DIR}
 
-# 检查 make 命令是否存在
-if ! command -v make &> /dev/null; then
-    echo "Make command not found. Please install make and try again."
-    exit 1
-fi
-
 # 安装 SDK
 make install
-
-LIB_PATH=/usr/local/lib
-cp ${SDK_ROOT_DIR}/libs/libtof_dev_sdk.so ${LIB_PATH}
 
 # 检查 make install 命令是否成功
 if [ $? -eq 0 ]; then
     echo "---------------------install success----------------------"
-    echo "libtof_dev_sdk.so is already installed to ${LIB_PATH}."
+    echo "sunny_camera is already installed to /usr/local."
 else
     # 安装失败
-    echo "----------install failed, please use sudo command----------"
+    echo "----------install failed, please try rebuild----------"
     exit 1
 fi

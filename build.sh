@@ -1,6 +1,22 @@
 #!/bin/bash
 #pushd .
-clear
+OPTIND=1
+
+BUILD_PYTHON="false"
+
+while getopts ":p" opt; do
+  case $opt in
+    p)
+      BUILD_PYTHON="true"
+      echo "Build script will build Python shared libraries additionally!"
+      ;;
+    \?)
+      echo -e "\033[31m Option error ! ! ! \033[0m" >&2
+      echo -e "\033[31m Use the -p option to build Python shared libraries additionally. \033[0m" >&2
+      echo "Use default option." 
+      ;;
+  esac
+done
 
 #-----这些字段仅适用于安卓环境下-----------------begin-------------------
 SUNNY_ANDROID=true
@@ -37,17 +53,23 @@ fi
 cd ${SDK_BUILD_DIR}
 #cmake -DCMAKE_TOOLCHAIN_FILE=${SUNNY_CMAKE_TOOLCHAIN_FILE} -DSUNNY_ANDROID=${SUNNY_ANDROID} -DCMAKE_ANDROID_NDK_TOOLCHAIN_VERSION=${SUNNY_ANDROID_TOOLCHAIN} -DANDROID_TOOLCHAIN=${SUNNY_ANDROID_TOOLCHAIN} -DANDROID_ABI=${SUNNY_ANDROID_ABI} -DANDROID_PLATFORM=${SUNNY_ANDROID_PLATFORM} -DANDROID_ARM_NEON=${SUNNY_ANDROID_ARM_NEON} ..
 #cmake -DCMAKE_TOOLCHAIN_FILE=${SUNNY_CMAKE_TOOLCHAIN_FILE} ..
- 
-PYTHON_ENV=$(which python)
-PYTHON_VERSION="$(python -c "import sys; print('.'.join(sys.version.split('.')[:2]))")"
-PYTHON_INCLUDE="$(echo "$(which python)" | awk -F/bin/python '{print $1}')/include/python${PYTHON_VERSION}"
-PYTHON_LIBRARIES="$(echo "$(which python)" | awk -F/bin/python '{print $1}')/lib"
+if [ "$BUILD_PYTHON" = "true" ]; then
+    echo "BUILD_PYTHON = true"
+    PYTHON_ENV=$(which python)
+    PYTHON_VERSION="$(python -c "import sys; print('.'.join(sys.version.split('.')[:2]))")"
+    PYTHON_INCLUDE="$(echo "$(which python)" | awk -F/bin/python '{print $1}')/include/python${PYTHON_VERSION}"
+    PYTHON_LIBRARIES="$(echo "$(which python)" | awk -F/bin/python '{print $1}')/lib"
 
-cmake -DPYTHON_ENV=${PYTHON_ENV} -DPYTHON_VERSION=${PYTHON_VERSION} -DPYTHON_LIBRARIES=${PYTHON_LIBRARIES} -DPYTHON_INCLUDE=${PYTHON_INCLUDE} ..
+    cmake -DBUILD_PYTHON=1 -DPYTHON_ENV=${PYTHON_ENV} -DPYTHON_VERSION=${PYTHON_VERSION} -DPYTHON_LIBRARIES=${PYTHON_LIBRARIES} -DPYTHON_INCLUDE=${PYTHON_INCLUDE} ..
+else 
+    echo "BUILD_PYTHON = flase"
+    cmake .. 
+fi
+
 # 判断构建是否成功
 if [ $? -eq 0 ]; then
     # 构建成功
-    make
+    make -j16
     if [ $? -eq 0 ]; then
         # 编译成功
         cd ${ORIGIN_DIR}
@@ -69,10 +91,10 @@ if [ $? -eq 0 ]; then
     else
         cd ${ORIGIN_DIR}
         # 编译失败
-        echo "----------build failed, comfirm the requirements satisfied and python_env activated----------"
+        echo "----------build failed, comfirm the requirements satisfied ----------"
     fi
 else
     cd ${ORIGIN_DIR}
     # 构建失败
-    echo "----------cmake failed, comfirm the requirements satisfied and python_env activated----------"
+    echo "----------cmake failed, comfirm the requirements satisfied ----------"
 fi

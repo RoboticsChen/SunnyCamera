@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='sunny_camera',
-    version='1.1.0',
+    name='SunnyCamera',
+    version='2.0',
     packages=find_packages(),  # 自动查找项目中的包
     install_requires=[
         'numpy',
